@@ -411,7 +411,7 @@ function renderTodaysAppointmentsOnDashboard(){
         const link = a.mrn ? `patient-spa.html?id=${a.mrn}` : '#';
         const item = document.createElement('div');
         item.className = 'appt';
-        item.innerHTML = `<div><strong>${a.time}</strong> — <a href="${link}" style="color:inherit;text-decoration:none">${a.name}</a></div><div style=\"color:var(--muted)\">${a.provider||''} • ${a.date}</div>`;
+        item.innerHTML = `<div><strong>${a.time}</strong> — <a href="${link}" style="color:inherit;text-decoration:none">${a.name}</a>${a.reason?` <span style=\"color:var(--muted)\">• ${a.reason}</span>`:''}</div><div style=\"color:var(--muted)\">${a.provider||''} • ${a.date}</div>`;
         container.appendChild(item);
       });
     }
@@ -420,7 +420,7 @@ function renderTodaysAppointmentsOnDashboard(){
       const link = a.mrn ? `patient-spa.html?id=${a.mrn}` : '#';
       const item = document.createElement('div');
       item.className = 'appt';
-      item.innerHTML = `<div><strong>${a.time}</strong> — <a href="${link}" style="color:inherit;text-decoration:none">${a.name}</a></div><div style=\"color:var(--muted)\">${a.provider||''}</div>`;
+      item.innerHTML = `<div><strong>${a.time}</strong> — <a href="${link}" style="color:inherit;text-decoration:none">${a.name}</a>${a.reason?` <span style=\"color:var(--muted)\">• ${a.reason}</span>`:''}</div><div style=\"color:var(--muted)\">${a.provider||''}</div>`;
       container.appendChild(item);
     });
   }
