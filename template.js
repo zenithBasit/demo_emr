@@ -119,6 +119,14 @@ function initTemplate(activePage = '', includeApp = true) {
       sidebarPlaceholder.innerHTML = generateSidebar(activePage);
       // Add navigation event listeners for SPA routing
       initSPANavigation();
+      // Wire logout after sidebar render (SPA timing safe)
+      const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          try { localStorage.removeItem('helix_logged_in'); } catch(e) {}
+          window.location.href = 'login.html';
+        });
+      }
     }
   }
 
