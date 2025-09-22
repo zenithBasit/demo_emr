@@ -12,5 +12,44 @@
       <button class="btn" id="download-summary">Download Summary</button>
     </div>
   </div>
-  <div style="color:var(--muted);text-align:center;padding:40px">Patient details would be loaded here...</div>
+  <div class="soap-stack" id="soap-stack">
+    <div style="display:flex;gap:10px;align-items:center">
+      <label style="margin:0;min-width:80px">Body Part</label>
+      <select id="soap-body-part" style="padding:8px;border-radius:8px;border:1px solid var(--border)">
+        <option value="General">General</option>
+        <option value="Shoulder">Shoulder</option>
+        <option value="Elbow">Elbow</option>
+        <option value="Wrist">Wrist</option>
+        <option value="Hand">Hand</option>
+        <option value="Hip">Hip</option>
+        <option value="Knee">Knee</option>
+        <option value="Ankle">Ankle</option>
+        <option value="Foot">Foot</option>
+        <option value="Spine">Spine</option>
+        <option value="Neck">Neck</option>
+        <option value="Back">Back</option>
+      </select>
+    </div>
+    <div class="soap-block">
+      <label>Subjective</label>
+      <textarea id="s_subj" rows="3" placeholder="Patient complaint, history..."></textarea>
+    </div>
+    <div class="soap-block">
+      <label>Objective</label>
+      <textarea id="s_obj" rows="3" placeholder="Exam findings, vitals..."></textarea>
+    </div>
+    <div class="soap-block">
+      <label>Assessment</label>
+      <textarea id="s_assess" rows="2" placeholder="Diagnosis or impression..."></textarea>
+    </div>
+    <div class="soap-block">
+      <label>Plan</label>
+      <textarea id="s_plan" rows="2" placeholder="Management and follow-up..."></textarea>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="btn" id="save-soap">Save SOAP</button>
+      <button class="btn ghost" id="clear-soap">Clear</button>
+    </div>
+    <div id="saved-soaps" style="margin-top:12px"></div>
+  </div>
 </div>

@@ -146,6 +146,15 @@ function initPatientPage() {
     wrapper.style.gap = '8px';
     wrapper.style.alignItems = 'flex-start';
 
+    const select = document.createElement('select');
+    select.className = 'soap-entry-bodypart';
+    select.style.padding = '8px';
+    select.style.border = '1px solid var(--border)';
+    select.style.borderRadius = '8px';
+    ;['General','Shoulder','Elbow','Wrist','Hand','Hip','Knee','Ankle','Foot','Spine','Neck','Back'].forEach(v=>{
+      const opt = document.createElement('option'); opt.value=v; opt.textContent=v; select.appendChild(opt);
+    });
+
     const textarea = document.createElement('textarea');
     textarea.rows = section==='subjective' || section==='objective' ? 3 : 2;
     textarea.placeholder = section==='subjective' ? 'Patient complaint, history...' : section==='objective' ? 'Exam findings, vitals...' : section==='assessment' ? 'Diagnosis or impression...' : 'Management and follow-up...';
@@ -159,6 +168,7 @@ function initPatientPage() {
       wrapper.remove();
     });
 
+    wrapper.appendChild(select);
     wrapper.appendChild(textarea);
     wrapper.appendChild(removeBtn);
     return wrapper;
@@ -187,21 +197,27 @@ function initPatientPage() {
   const saveSoapBtn = document.getElementById('save-soap');
   const clearSoapBtn = document.getElementById('clear-soap');
 
-  function gatherSectionText(section){
+  function gatherSectionEntries(section){
     const list = document.getElementById('list-' + section);
-    if(!list) return '';
-    const parts = Array.from(list.querySelectorAll('textarea'))
-      .map(t=>t.value.trim())
+    if(!list) return [];
+    const entries = Array.from(list.querySelectorAll('.soap-entry'))
+      .map(entry=>{
+        const bpSel = entry.querySelector('select.soap-entry-bodypart');
+        const ta = entry.querySelector('textarea');
+        const text = (ta?.value || '').trim();
+        const bodyPart = bpSel?.value || 'General';
+        return text ? { bodyPart, text } : null;
+      })
       .filter(Boolean);
-    return parts.join('\n');
+    return entries;
   }
 
   if(saveSoapBtn) saveSoapBtn.addEventListener('click', ()=>{
-    const subj = gatherSectionText('subjective');
-    const obj = gatherSectionText('objective');
-    const assess = gatherSectionText('assessment');
-    const plan = gatherSectionText('plan');
-    if(!subj && !obj && !assess && !plan){ alert('Enter at least one field'); return; }
+    const subj = gatherSectionEntries('subjective');
+    const obj = gatherSectionEntries('objective');
+    const assess = gatherSectionEntries('assessment');
+    const plan = gatherSectionEntries('plan');
+    if(subj.length===0 && obj.length===0 && assess.length===0 && plan.length===0){ alert('Enter at least one field'); return; }
     const note = {subjective:subj, objective:obj, assessment:assess, plan:plan, date:new Date().toISOString().split('T')[0]};
     store.soaps.push(note);
     clearSoapFields();
@@ -227,17 +243,39 @@ function initPatientPage() {
     store.soaps.slice().reverse().forEach((s,idx)=>{
       const d = document.createElement('div'); d.className='soap-block';
       d.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>SOAP — ${s.date}</strong></div><div><button class="btn ghost" onclick="downloadSOAP(${idx})">Download</button></div></div>
-      <div style="margin-top:8px"><strong>Subjective:</strong><div style="color:var(--muted)">${escapeHtml(s.subjective)}</div><strong>Objective:</strong><div style="color:var(--muted)">${escapeHtml(s.objective)}</div><strong>Assessment:</strong><div style="color:var(--muted)">${escapeHtml(s.assessment)}</div><strong>Plan:</strong><div style="color:var(--muted)">${escapeHtml(s.plan)}</div></div>`;
+      <div style="margin-top:8px">${renderSection('Subjective', s.subjective)}${renderSection('Objective', s.objective)}${renderSection('Assessment', s.assessment)}${renderSection('Plan', s.plan)}</div>`;
       el.appendChild(d);
     });
+  }
+
+  function renderSection(title, data){
+    // data can be array of {bodyPart,text} or legacy string
+    if(Array.isArray(data)){
+      if(data.length===0) return '';
+      const rows = data.map(e=>`<div style="color:var(--muted)"><span style=\"font-weight:600\">${escapeHtml(e.bodyPart)}:</span> ${escapeHtml(e.text)}</div>`).join('');
+      return `<strong>${title}:</strong>${rows}`;
+    } else if(typeof data === 'string' && data.trim()){
+      return `<strong>${title}:</strong><div style=\"color:var(--muted)\">${escapeHtml(data)}</div>`;
+    }
+    return '';
   }
 
   function escapeHtml(text){ return (text||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
 
   // Documents
   function buildDocumentContent(id,name,soap,type){
-    const title = type==='office'?'Office Note':type==='followup'?'Follow-up Note':'Therapy Note';
-    return `<!doctype html><html><head><meta charset="utf-8"><title>${title}</title></head><body><h1>${title}</h1><h3>Patient: ${name} (MRN: ${id})</h3><p><strong>Date:</strong> ${new Date().toISOString().split('T')[0]}</p><h4>Subjective</h4><div>${escapeHtml(soap.subjective)}</div><h4>Objective</h4><div>${escapeHtml(soap.objective)}</div><h4>Assessment</h4><div>${escapeHtml(soap.assessment)}</div><h4>Plan</h4><div>${escapeHtml(soap.plan)}</div></body></html>`;
+    const title = type==='office'?'Office Note':type==='followup'?'Follow-up Note':type==='therapy'?'Therapy Note':'SOAP Note';
+    function renderDocSection(label, data){
+      if(Array.isArray(data)){
+        if(data.length===0) return '';
+        const rows = data.map(e=>`<div><strong>${escapeHtml(e.bodyPart)}:</strong> ${escapeHtml(e.text)}</div>`).join('');
+        return `<h4>${label}</h4>${rows}`;
+      } else if(typeof data === 'string' && data.trim()){
+        return `<h4>${label}</h4><div>${escapeHtml(data)}</div>`;
+      }
+      return '';
+    }
+    return `<!doctype html><html><head><meta charset="utf-8"><title>${title}</title></head><body><h1>${title}</h1><h3>Patient: ${name} (MRN: ${id})</h3><p><strong>Date:</strong> ${new Date().toISOString().split('T')[0]}</p>${renderDocSection('Subjective', soap.subjective)}${renderDocSection('Objective', soap.objective)}${renderDocSection('Assessment', soap.assessment)}${renderDocSection('Plan', soap.plan)}</body></html>`;
   }
 
   function downloadAsDoc(filename, htmlContent){
