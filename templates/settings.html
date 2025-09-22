@@ -1,0 +1,33 @@
+<div class="topbar">
+  <div class="title">
+    <h2 id="page-title" style="margin:0">Settings</h2>
+    <div style="color:var(--muted);font-size:13px">System configuration</div>
+  </div>
+</div>
+
+<section id="settings" class="page">
+  <div class="card" style="margin-bottom:12px">
+    <h3>Settings</h3>
+    <div style="color:var(--muted);margin-top:6px">Manage clinic preferences, users, and integrations</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 360px;gap:14px">
+    <div class="card">
+      <h4>Clinic Profile</h4>
+      <div style="height:8px"></div>
+      <div style="margin-bottom:10px"><label style="font-size:13px;color:var(--muted)">Clinic Name</label><input value="Sunrise Medical Center" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border)"/></div>
+      <div style="margin-bottom:10px"><label style="font-size:13px;color:var(--muted)">Address</label><textarea rows="3" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border)">Plot 23, Techpark Road, Gandhinagar</textarea></div>
+      <div style="margin-bottom:10px"><label style="font-size:13px;color:var(--muted)">Time Zone</label><select style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border)"><option>Asia/Kolkata (GMT+5:30)</option><option>UTC</option></select></div>
+      <button class="btn">Save Clinic Profile</button>
+    </div>
+
+    <div class="card">
+      <h4>User & Integrations</h4>
+      <div style="height:6px"></div>
+      <div style="color:var(--muted)">Configure users, roles & EHR integrations</div>
+      <div style="height:12px"></div>
+      <div style="margin-bottom:10px"><label style="font-size:13px;color:var(--muted)">Default Provider</label><select style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border)"><option>Dr. A. Kumar</option><option>Dr. S. Patel</option></select></div>
+      <div style="display:flex;gap:8px"><button class="btn">Add User</button><button class="btn ghost">Manage Roles</button></div>
+    </div>
+  </div>
+</section>

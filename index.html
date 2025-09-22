@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Helix EMR — Dashboard</title>
+
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <div class="app">
+    <!-- Sidebar Placeholder -->
+    <div id="sidebar-placeholder"></div>
+
+    <!-- Main SPA Content Container -->
+    <main class="panel" id="spa-content">
+      <!-- Content will be dynamically loaded here -->
+      <div style="display:flex;align-items:center;justify-content:center;height:400px">
+        <div style="text-align:center;color:var(--muted)">
+          <i class='bx bx-loader-alt' style="font-size:48px;animation:spin 1s linear infinite"></i>
+          <div style="margin-top:12px">Loading...</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Chatbot Placeholder -->
+  <div id="chatbot-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="template.js"></script>
+  <script src="router.js"></script>
+  <script src="main.js"></script>
+  <script>
+    // Initialize SPA
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize template components
+      initTemplate('dashboard', true);
+
+      // Router will handle the rest
+    });
+  </script>
+
+  <style>
+    /* Loading animation */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Smooth content transitions */
+    #spa-content {
+      transition: opacity 0.2s ease;
+    }
+
+    /* Ensure smooth navigation without page jumps */
+    .nav a {
+      transition: all 0.2s ease;
+    }
+
+    .nav a:hover {
+      transform: translateY(-1px);
+    }
+  </style>
+</body>
+</html>

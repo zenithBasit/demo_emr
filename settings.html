@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Helix EMR — Settings</title>
+
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <div class="app">
+    <!-- Sidebar Placeholder -->
+    <div id="sidebar-placeholder"></div>
+
+    <main class="panel" id="main-panel">
+      <div class="topbar">
+        <div class="title">
+          <h2 id="page-title" style="margin:0">Settings</h2>
+          <div style="color:var(--muted);font-size:13px">System configuration</div>
+        </div>
+      </div>
+
+      <!-- Settings Content -->
+      <section id="settings" class="page">
+        <div class="card" style="margin-bottom:12px">
+          <h3>Settings</h3>
+          <div style="color:var(--muted);margin-top:6px">Manage clinic preferences, users, and integrations</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 360px;gap:14px">
+          <div class="card">
+            <h4>Clinic Profile</h4>
+            <div style="height:8px"></div>
+            <div style="margin-bottom:10px"><label style="font-size:13px;color:var(--muted)">Clinic Name</label><input value="Sunrise Medical Center" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border)"/></div>
+            <div style="margin-bottom:10px"><label style="font-size:13px;color:var(--muted)">Address</label><textarea rows="3" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border)">Plot 23, Techpark Road, Gandhinagar</textarea></div>
+            <div style="margin-bottom:10px"><label style="font-size:13px;color:var(--muted)">Time Zone</label><select style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border)"><option>Asia/Kolkata (GMT+5:30)</option><option>UTC</option></select></div>
+            <button class="btn">Save Clinic Profile</button>
+          </div>
+
+          <div class="card">
+            <h4>User & Integrations</h4>
+            <div style="height:6px"></div>
+            <div style="color:var(--muted)">Configure users, roles & EHR integrations</div>
+            <div style="height:12px"></div>
+            <div style="margin-bottom:10px"><label style="font-size:13px;color:var(--muted)">Default Provider</label><select style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border)"><option>Dr. A. Kumar</option><option>Dr. S. Patel</option></select></div>
+            <div style="display:flex;gap:8px"><button class="btn">Add User</button><button class="btn ghost">Manage Roles</button></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Chatbot Placeholder -->
+  <div id="chatbot-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="template.js"></script>
+  <script src="main.js"></script>
+  <script>
+    // Initialize template with settings as active page
+    document.addEventListener('DOMContentLoaded', function() {
+      initTemplate('settings', true);
+    });
+  </script>
+</body>
+</html>

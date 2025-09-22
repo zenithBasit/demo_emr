@@ -1,0 +1,39 @@
+<div class="topbar">
+  <div class="title">
+    <h2 id="page-title" style="margin:0">Dashboard</h2>
+    <div style="color:var(--muted);font-size:13px">Appointments & recent visits</div>
+  </div>
+</div>
+
+<section id="dashboard" class="page">
+  <div class="grid">
+    <div>
+        <div class="card appointments">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3 style="margin:0">Appointments Today</h3>
+          <div id="appt-count" style="color:var(--muted);font-size:13px">0 slots</div>
+        </div>
+
+        <div id="appointments-today" style="margin-top:10px;display:flex;flex-direction:column;gap:8px">
+          <div style="color:var(--muted)">No appointments yet.</div>
+        </div>
+      </div>
+
+      <div style="height:14px"></div>
+
+      <div class="card recent-visits" style="overflow:auto;max-height:420px">
+        <h3 style="margin-top:0">Recent Visits</h3>
+        <table aria-label="Recent visits table">
+          <thead><tr><th>Patient</th><th>Reason</th><th>Date</th></tr></thead>
+          <tbody id="recent-visits-body">
+            <tr><td><a href="patient-spa.html?id=1001" style="color:inherit;text-decoration:none">John Doe</a></td><td>Chest pain</td><td>2025-09-16</td></tr>
+            <tr><td><a href="patient-spa.html?id=1000" style="color:inherit;text-decoration:none">Jane Smith</a></td><td>Flu</td><td>2025-09-15</td></tr>
+            <tr><td><a href="patient-spa.html?id=1002" style="color:inherit;text-decoration:none">Rahul Mehta</a></td><td>Diabetes follow-up</td><td>2025-09-15</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    
+  </div>
+</section>

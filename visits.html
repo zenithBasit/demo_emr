@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Helix EMR — Patient Visits</title>
+
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <div class="app">
+    <!-- Sidebar Placeholder -->
+    <div id="sidebar-placeholder"></div>
+
+    <main class="panel" id="main-panel">
+      <div class="topbar">
+        <div class="title">
+          <h2 id="page-title" style="margin:0">Visits</h2>
+          <div style="color:var(--muted);font-size:13px">Patient visit records</div>
+        </div>
+      </div>
+
+      <!-- Visits Content -->
+      <section id="visits" class="page">
+        <div class="card" style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
+          <h3 style="margin:0">Patient Visits</h3>
+          <div style="display:flex;gap:8px">
+            <input placeholder="Filter by patient" id="filter-visits" style="min-width:200px;padding:8px;border-radius:8px;border:1px solid var(--border)"/>
+            <button class="btn" id="add-visit">Add Visit</button>
+          </div>
+        </div>
+        <div class="card" style="overflow:auto;max-height:520px">
+          <table id="visits-table">
+            <thead><tr><th>Visit ID</th><th>Patient</th><th>Reason</th><th>Date</th></tr></thead>
+            <tbody id="visits-body">
+              <tr><td>V-1001</td><td><a href="patient.html?id=1001">John Doe</a></td><td>Chest pain</td><td>2025-09-16</td></tr>
+              <tr><td>V-1000</td><td><a href="patient.html?id=1000">Jane Smith</a></td><td>Fever</td><td>2025-09-15</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Chatbot Placeholder -->
+  <div id="chatbot-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="template.js"></script>
+  <script src="main.js"></script>
+  <script>
+    // Initialize template with visits as active page
+    document.addEventListener('DOMContentLoaded', function() {
+      initTemplate('visits', true);
+
+      // Visits-specific functionality
+      const addVisitBtn = document.getElementById('add-visit');
+      if(addVisitBtn) {
+        addVisitBtn.addEventListener('click', ()=>{
+          alert('Open new visit modal (mock) — integrate your form here.');
+        });
+      }
+
+      // Visit filter
+      const filter = document.getElementById('filter-visits');
+      if(filter) filter.addEventListener('input', (e)=>{
+        const q = e.target.value.toLowerCase();
+        document.querySelectorAll('#visits-body tr').forEach(tr=>
+          tr.style.display = tr.innerText.toLowerCase().includes(q) ? '' : 'none'
+        );
+      });
+    });
+  </script>
+</body>
+</html>

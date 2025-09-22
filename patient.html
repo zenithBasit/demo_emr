@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Patient — Helix EMR</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <div class="container">
+    <div class="header">
+      <div class="patient-meta">
+        <div class="avatar" id="avatar">JD</div>
+        <div>
+          <h2 id="patient-name" style="margin:0">John Doe</h2>
+          <div style="color:var(--muted)">DOB: 1986-05-02 • MRN: 1001</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="btn" id="download-summary">Download Summary</button>
+      </div>
+    </div>
+
+    <div class="centered">
+      <div class="center-column">
+        <div class="card">
+          <h3 style="margin-top:0">Patient Details</h3>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:8px">
+            <div style="min-width:160px">
+              <label>Full name</label>
+              <input id="field-name" />
+            </div>
+            <div style="min-width:140px">
+              <label>MRN</label>
+              <input id="field-mrn" />
+            </div>
+            <div style="min-width:140px">
+              <label>DOB</label>
+              <input id="field-dob" />
+            </div>
+            <div style="min-width:140px">
+              <label>Phone</label>
+              <input id="field-phone" />
+            </div>
+          </div>
+
+          <div class="soap-stack" id="soap-stack">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <h4 style="margin:6px 0 0 0">SOAP Notes</h4>
+              <div style="color:var(--muted);font-size:13px">Linear S → O → A → P</div>
+            </div>
+
+            <!-- Linear SOAP editor -->
+            <div class="soap-block">
+              <label>Subjective</label>
+              <textarea id="s_subj" rows="3" placeholder="Patient complaint, history..."></textarea>
+            </div>
+            <div class="soap-block">
+              <label>Objective</label>
+              <textarea id="s_obj" rows="3" placeholder="Exam findings, vitals..."></textarea>
+            </div>
+            <div class="soap-block">
+              <label>Assessment</label>
+              <textarea id="s_assess" rows="2" placeholder="Diagnosis or impression..."></textarea>
+            </div>
+            <div class="soap-block">
+              <label>Plan</label>
+              <textarea id="s_plan" rows="2" placeholder="Management and follow-up..."></textarea>
+            </div>
+
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <button class="btn" id="save-soap">Save SOAP</button>
+              <button class="btn ghost" id="clear-soap">Clear</button>
+            </div>
+
+            <div id="saved-soaps" style="margin-top:12px">
+              <!-- rendered saved SOAPs -->
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="card">
+          <h4 style="margin:0 0 8px 0">Visits</h4>
+          <div id="visits-list" style="display:flex;flex-direction:column;gap:8px">
+            <!-- visit items -->
+          </div>
+        </div>
+      </div>
+
+      <div class="side-column">
+        <div class="card">
+          <h4 style="margin-top:0">Generate Documents</h4>
+          <div style="color:var(--muted);margin-top:6px">Create notes from latest SOAP</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+            <button class="btn" onclick="generateNote('office')">Office Note</button>
+            <button class="btn" onclick="generateNote('followup')">Follow-up Note</button>
+            <button class="btn" onclick="generateNote('therapy')">Therapy Note</button>
+            <button class="btn ghost" id="download-all">Download All (ZIP)</button>
+          </div>
+
+          <div style="height:12px"></div>
+          <h4 style="margin:0 0 8px 0">Generated Documents</h4>
+          <div class="doc-list" id="docs-list">
+            <div style="color:var(--muted)">No documents yet.</div>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="card">
+          <h4 style="margin-top:0">Timeline</h4>
+          <div id="timeline" style="color:var(--muted);margin-top:8px">No events yet.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chatbot Placeholder -->
+  <div id="chatbot-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="template.js"></script>
+  <script src="main.js"></script>
+  <script>
+    // Initialize template for patient page (no sidebar needed)
+    document.addEventListener('DOMContentLoaded', function() {
+      initTemplate('', false); // No active page, no app layout
+
+      // Initialize patient page functionality
+      if(typeof initPatientPage === 'function') {
+        initPatientPage();
+      }
+    });
+  </script>
+</body>
+</html>

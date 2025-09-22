@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Helix EMR — Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+  <style>
+    body {
+      background: linear-gradient(180deg, #f3f6fa, #eef2f7);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-card {
+      background: var(--panel);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(15,23,36,0.10);
+      padding: 36px 32px 28px 32px;
+      max-width: 360px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      border: 1px solid var(--border);
+    }
+    .login-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      justify-content: center;
+    }
+    .login-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 22px;
+    }
+    .login-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0;
+    }
+    .login-form label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+    .login-form input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+      font-size: 15px;
+      background: var(--bg);
+    }
+    .login-form .btn {
+      width: 100%;
+      margin-top: 6px;
+    }
+    .login-error {
+      color: #e11d48;
+      background: #fef2f2;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      margin-bottom: 4px;
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <form class="login-card login-form" id="login-form" autocomplete="off">
+    <div class="login-header">
+      <div class="login-logo">HE</div>
+      <div class="login-title">Helix EMR</div>
+    </div>
+    <div style="color:var(--muted);text-align:center;margin-bottom:8px">Sign in to your account</div>
+    <div class="login-error" id="login-error"></div>
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" required autofocus autocomplete="username" placeholder="Enter your username" />
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="Enter your password" />
+    <button class="btn" type="submit">Login</button>
+  </form>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('login-error');
+      // Simple mock login: username "admin", password "admin123"
+      if(username === 'admin' && password === 'admin123'){
+        errorDiv.style.display = 'none';
+        // Save login state (optional, for demo)
+        localStorage.setItem('helix_logged_in', '1');
+        window.location.href = 'index.html';
+      } else {
+        errorDiv.textContent = 'Invalid username or password.';
+        errorDiv.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

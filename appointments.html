@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Helix EMR — Appointments</title>
+
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <div class="app">
+    <!-- Sidebar Placeholder -->
+    <div id="sidebar-placeholder"></div>
+
+    <main class="panel" id="main-panel">
+      <div class="topbar">
+        <div class="title">
+          <h2 id="page-title" style="margin:0">Appointments</h2>
+          <div style="color:var(--muted);font-size:13px">Scheduled appointments</div>
+        </div>
+      </div>
+
+      <!-- Appointments Content -->
+      <section id="appointments" class="page">
+        <div class="card">
+          <h3 style="margin:0">Schedule Appointments</h3>
+          <div style="height:8px"></div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn ghost appt-day-tab" data-offset="0">Today</button>
+            <button class="btn ghost appt-day-tab" data-offset="1">Tomorrow</button>
+            <button class="btn ghost appt-day-tab" data-offset="2">Day After</button>
+          </div>
+          <div style="height:10px"></div>
+          <div id="appt-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"></div>
+        </div>
+        <div id="appt-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;z-index:1000">
+          <div class="card" style="width:520px;max-width:96%;padding:16px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <h3 style="margin:0">Add Appointment</h3>
+              <button class="btn ghost" id="close-appt-modal">✕</button>
+            </div>
+            <div style="height:10px"></div>
+            <div id="appt-when" style="color:var(--muted);margin-bottom:10px"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div><label>Patient Name</label><input id="appt-name" /></div>
+              <div><label>MRN</label><input id="appt-mrn" /></div>
+              <div><label>Provider</label><input id="appt-provider" value="Dr. A. Kumar" /></div>
+              <div><label>Reason</label><input id="appt-reason" placeholder="Visit reason" /></div>
+            </div>
+            <div style="height:12px"></div>
+            <div style="display:flex;gap:8px;justify-content:flex-end">
+              <button class="btn ghost" id="cancel-appt">Cancel</button>
+              <button class="btn" id="save-appt">Save Appointment</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Chatbot Placeholder -->
+  <div id="chatbot-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="template.js"></script>
+  <script src="main.js"></script>
+  <script>
+    // Initialize template with appointments as active page
+    document.addEventListener('DOMContentLoaded', function() {
+      initTemplate('appointments', true);
+      if(typeof initAppointmentsPage === 'function') initAppointmentsPage();
+    });
+  </script>
+</body>
+</html>

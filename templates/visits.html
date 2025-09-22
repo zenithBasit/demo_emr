@@ -1,0 +1,25 @@
+<div class="topbar">
+  <div class="title">
+    <h2 id="page-title" style="margin:0">Visits</h2>
+    <div style="color:var(--muted);font-size:13px">Patient visit records</div>
+  </div>
+</div>
+
+<section id="visits" class="page">
+  <div class="card" style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
+    <h3 style="margin:0">Patient Visits</h3>
+    <div style="display:flex;gap:8px">
+      <input placeholder="Filter by patient" id="filter-visits" style="min-width:200px;padding:8px;border-radius:8px;border:1px solid var(--border)"/>
+      <button class="btn" id="add-visit">Add Visit</button>
+    </div>
+  </div>
+  <div class="card" style="overflow:auto;max-height:520px">
+    <table id="visits-table">
+      <thead><tr><th>Visit ID</th><th>Patient</th><th>Reason</th><th>Date</th></tr></thead>
+      <tbody id="visits-body">
+        <tr><td>V-1001</td><td><a href="patient-spa.html?id=1001">John Doe</a></td><td>Chest pain</td><td>2025-09-16</td></tr>
+        <tr><td>V-1000</td><td><a href="patient-spa.html?id=1000">Jane Smith</a></td><td>Fever</td><td>2025-09-15</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
